@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>flower for you babe!💋🌹</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    background: radial-gradient(circle at center,#1a001f,#000);
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    font-family:Segoe UI;
+    color:white;
+    perspective:1500px;
+}
+
+/* Title */
+h1{
+    position:absolute;
+    top:20px;
+    font-size:clamp(22px,5vw,40px);
+    text-align:center;
+    text-shadow:0 0 20px #ff3399;
+}
+
+/* Container */
+.scene{
+    display:flex;
+    gap:120px;
+    transform-style:preserve-3d;
+}
+
+/* Flower */
+.flower{
+    position:relative;
+    width:180px;
+    height:380px;
+    transform-style:preserve-3d;
+    transition:transform 0.2s ease-out;
+}
+
+/* Petals */
+.petal{
+    position:absolute;
+    width:120px;
+    height:160px;
+    background: radial-gradient(circle at 30% 30%, #ff99cc, #b30059);
+    border-radius:60% 60% 50% 50%;
+    top:40px;
+    left:30px;
+    transform-origin:bottom center;
+    box-shadow:0 25px 50px rgba(0,0,0,0.7);
+}
+
+/* 3D Layout */
+.petal:nth-child(1){ transform:rotateY(0deg) translateZ(60px); }
+.petal:nth-child(2){ transform:rotateY(45deg) translateZ(60px); }
+.petal:nth-child(3){ transform:rotateY(90deg) translateZ(60px); }
+.petal:nth-child(4){ transform:rotateY(135deg) translateZ(60px); }
+.petal:nth-child(5){ transform:rotateY(180deg) translateZ(60px); }
+.petal:nth-child(6){ transform:rotateY(225deg) translateZ(60px); }
+.petal:nth-child(7){ transform:rotateY(270deg) translateZ(60px); }
+.petal:nth-child(8){ transform:rotateY(315deg) translateZ(60px); }
+
+/* Stem */
+.stem{
+    position:absolute;
+    top:200px;
+    left:84px;
+    width:10px;
+    height:180px;
+    background:linear-gradient(#40916c,#081c15);
+    border-radius:10px;
+    transform:translateZ(-40px);
+}
+
+/* Leaves */
+.leaf{
+    position:absolute;
+    width:90px;
+    height:60px;
+    background:linear-gradient(135deg,#52b788,#1b4332);
+    border-radius:70px 0 70px 0;
+}
+
+.leaf.left{
+    top:240px;
+    left:-40px;
+    transform:rotate(-40deg) translateZ(-20px);
+}
+
+.leaf.right{
+    top:270px;
+    right:-40px;
+    transform:rotate(40deg) translateZ(-20px);
+}
+
+/* Floating hearts */
+.particle{
+    position:absolute;
+    color:#ff66b2;
+    font-size:20px;
+    animation:floatUp linear forwards;
+}
+
+/* Animations */
+@keyframes floatUp{
+    to{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+/* 📱 MOBILE ADJUSTMENTS */
+@media (max-width:600px){
+
+    .scene{
+        gap:40px;
+    }
+
+    .flower{
+        width:140px;
+        height:320px;
+        transform:scale(0.9);
+    }
+
+    .petal{
+        width:100px;
+        height:140px;
+        left:20px;
+    }
+
+    .stem{
+        left:65px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Valentine's 🌹</h1>
+
+<div class="scene">
+
+    <div class="flower">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="stem"></div>
+        <div class="leaf left"></div>
+        <div class="leaf right"></div>
+    </div>
+
+</div>
+
+<script>
+/* Desktop Mouse Rotation */
+document.addEventListener("mousemove", (e)=>{
+    rotate(e.clientX, e.clientY);
+});
+
+/* 📱 Mobile Touch Rotation */
+document.addEventListener("touchmove", (e)=>{
+    const touch = e.touches[0];
+    rotate(touch.clientX, touch.clientY);
+});
+
+function rotate(xPos, yPos){
+    let x = (xPos / window.innerWidth - 0.5) * 40;
+    let y = (yPos / window.innerHeight - 0.5) * 40;
+
+    document.querySelectorAll(".flower").forEach(f=>{
+        f.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+    });
+}
+
+/* Floating hearts */
+function createParticle(){
+    const p=document.createElement("div");
+    p.classList.add("particle");
+    p.innerHTML="❤️";
+    p.style.left=Math.random()*100+"vw";
+    p.style.fontSize=(Math.random()*25+15)+"px";
+    p.style.animationDuration=(Math.random()*3+5)+"s";
+    document.body.appendChild(p);
+
+    setTimeout(()=>p.remove(),8000);
+}
+
+setInterval(createParticle,400);
+</script>
+
+</body>
+</html>
